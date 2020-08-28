@@ -1,8 +1,7 @@
 <script>
 
-    // let result = "";
-    // let correctAnswer = "b";
-    // let answers = ["a", "b", "c", "d"]
+    import Question from "./Question.svelte";
+    
     let quiz = getQuiz();
 
     function pickAnswer(answer) {
@@ -30,18 +29,13 @@
     {#await quiz} 
         Loading ...
     {:then data}   
-        <h5>{data.results[0].question}</h5>
+
+        {#each data.results as question}
+            <Question {question} />
+        {/each}
+
     {/await}
 
     <button on:click={handleClick}>Get Questions</button>
 
-    <!-- {#if result}
-        <h4>{result}</h4>
-    {:else}
-        <h5>Please pick an answer</h5>
-    {/if}
-
-    {#each answers as answer}
-        <button on:click={() => pickAnswer(answer)}>Answer {answer.toUpperCase()}</button>
-    {/each} -->
 </div>
