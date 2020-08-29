@@ -26,6 +26,7 @@
 </script>
 
 <div>
+    <button on:click={handleClick}>Get Questions</button>
     {#await quiz} 
         Loading ...
     {:then data}   
@@ -36,6 +37,6 @@
 
     {/await}
 
-    <button on:click={handleClick}>Get Questions</button>
+    
 
 </div>
