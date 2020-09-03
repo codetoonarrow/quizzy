@@ -1,5 +1,7 @@
 <script>
     export let question;
+    export let nextQuestion;
+
     let isCorrect;
     let isAnswered = false;
     let answers = question.incorrect_answers.map(answer => {
@@ -36,13 +38,13 @@
 </h3>
 
 {#if isAnswered}   
-    <h4>
+    <h5>
         {#if isCorrect}
             You got it right
         {:else}
             You goofed up
         {/if}
-    </h4>
+    </h5>
 {/if}
 
 {#each allAnswers as answer}
@@ -50,3 +52,9 @@
         {@html answer.answer}
     </button>
 {/each}
+
+{#if isAnswered}
+    <div>
+        <button on:click={nextQuestion}>Next Question</button>
+    </div>
+{/if}
