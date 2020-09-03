@@ -1,7 +1,8 @@
 <script>
     export let question;
     export let nextQuestion;
-
+    export let addToScore;
+    
     let isCorrect;
     let isAnswered = false;
     let answers = question.incorrect_answers.map(answer => {
@@ -28,6 +29,9 @@
     function checkQuestion(correct){
         isAnswered = true;
         isCorrect = correct;
+        if(correct){
+            addToScore();
+        }
     }
 
 </script>

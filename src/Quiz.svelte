@@ -1,7 +1,9 @@
 <script>
-
+    import { fade } from "svelte/transition";
     import Question from "./Question.svelte";
+
     let activeQuestion = 0;
+    let score = 0;
     let quiz = getQuiz();
 
     function pickAnswer(answer) {
@@ -19,17 +21,25 @@
         return quiz;
     }
 
-    function handleClick(){
-        quiz = getQuiz();
-    }
+
     function nextQuestion(){
         activeQuestion = activeQuestion + 1;
     }
+
+    function resetQuiz(){
+        score = 0
+        quiz =getQuiz()
+    }
+
+    function addToScore(){
+        score = score + 1;
+    }
+
 </script>
 
 <div>
-    <button on:click={handleClick}>Start New Quiz</button>
-    <h3>My score: 0</h3>
+    <button on:click={resetQuiz}>Start New Quiz</button>
+    <h3>My score: {score}</h3>
     <h4>Question #{activeQuestion + 1}</h4>
 
     {#await quiz} 
@@ -38,12 +48,17 @@
 
         {#each data.results as question, index}
             {#if index === activeQuestion}
-                <Question {nextQuestion} {question} />
+                <div transition:fade class="fade-wrapper">
+                    <Question {addToScore} {nextQuestion} {question} />
+                </div>
             {/if}
         {/each}
-        
     {/await}
-
-    
-
 </div>
+
+
+<style>
+    .fade-wrapper{
+        position:absolute;
+    }
+</style>
